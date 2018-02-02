@@ -1,4 +1,4 @@
-// Draw the canvas 
+// Draw
 function draw() {
     var canvas = document.getElementById('doodle');
     if (canvas.getContext) {
@@ -14,6 +14,20 @@ function draw() {
 }
 
 draw();
+
+// Define object 
+function droid(options) {
+	var that = {};
+					
+    that.context = options.context;
+    that.width = options.width;
+    that.height = options.height;
+    that.image = options.image;
+
+    return that;
+
+}
+
 
 
 
