@@ -17,7 +17,8 @@ h1 {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    border: 2px solid black;
+    border: 2px solid #000;
+    box-shadow: 10px 10px 5px #aaaaaa;
 }
 
 #instructions {
