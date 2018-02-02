@@ -8,7 +8,7 @@ function draw() {
         img.onload = function() {
             ctx.drawImage(img, 150, 300, 40, 40);
         };
-        img.src = "../game-project/assets/images/paperplane.svg";
+        img.src = "../paper-droid/assets/images/paperplane.svg";
 
     }
 }
