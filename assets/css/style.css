@@ -1,0 +1,38 @@
+body {
+	background-image: url("../images/paper.jpg");
+}
+
+
+h1 {
+	text-align: center;
+	margin-top: 20px;
+	text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+}
+
+#doodle {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border: 2px solid black;
+}
+
+#instructions {
+	margin-top: 14px;
+	text-align: center;
+}
+
+#instructions p {
+	margin: 0;
+	padding: 0;
+}
+
+#by {
+	color: #000;
+	margin-left: 100px;
+}
+
+
