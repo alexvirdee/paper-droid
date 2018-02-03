@@ -23,7 +23,7 @@ var myGameArea = {
 }
 
 // set coordinates of plane, size, and load img sprite
-plane = new Paperplane(40, 40, 0, 0, "../paper-droid/assets/images/paperplane.svg") 
+plane = new Paperplane(35, 35, 0, 0, "../paper-droid/assets/images/paperplane.svg") 
 
 
 // Sprite constructor for paper airplane 
@@ -34,6 +34,8 @@ function Paperplane(width, height, xPos, yPos, image) {
     this.speedY = 0;
     this.width = width;
     this.height = height;
+    this.angle;
+    this.fires = [];
     this.image = new Image();
     this.image.src = image;
     this.update = function() {
@@ -50,6 +52,10 @@ function Paperplane(width, height, xPos, yPos, image) {
     		this.width, 
     		this.height
     		);
+
+    	for (var i = 0; i < this.fires.length; i++) 
+    		this.fires[i].update(); 	
+    	
     }  
 
 }
@@ -58,6 +64,10 @@ function Paperplane(width, height, xPos, yPos, image) {
 Paperplane.prototype.newPos = function() {
 	this.xPos += this.speedX;
 	this.yPos += this.speedY;
+
+	for (var i = 0; i < this.fires.length; i++) 
+		this.fires[i].newPos();
+
 }
 
 // method for having the plane move to the opposite side of canvas upon leaving side
@@ -76,10 +86,36 @@ Paperplane.prototype.checkPos = function() {
 }
 
 
-
-Paperplane.prototype.shoot = function() {
-
+function Fire(x, y, dx, dy) {
+	this.x = x;
+	this.y = y;
+	this.dx = dx;
+	this.dy = dy;
 }
+
+Fire.prototype.draw = function() {
+	ctx.beginPath();
+	ctx.fillStyle = "red";
+	ctx.arc(this.x, this.y, 10, 0, 2*Math.PI);
+	ctx.fill();
+	ctx.closePath();
+}
+
+Fire.prototype.update = function() {
+	this.x += this.dx;
+	this.y += this.dy	
+}
+
+
+Paperplane.prototype.fire = function() {
+	var dx = Math.cos(this.angle);
+	var dy = Math.sin(this.angle);
+
+	var f = new Fire(this.x, this.y, dx, dy);
+
+	this.fires.push(f);
+}
+
 
 
 // Move
@@ -103,9 +139,9 @@ function move(e) {
         plane.speedY = 5;
         // console.log("Move 5 pixels down")
     } 
-
+    	// fire bullet when spacebar is pressed
     if (e.which == 32) {
-    	plane.shoot();
+    	plane.fire();
     }   
 
 }
