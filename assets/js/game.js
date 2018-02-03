@@ -22,8 +22,8 @@ var myGameArea = {
     }
 }
 
-// set coordinates of plane, size, and load img sprite
-plane = new Paperplane(35, 35, 0, 0, "../paper-droid/assets/images/paperplane.svg")
+// Set size of plane, coordinates, and load img sprite
+plane = new Paperplane(35, 35, 400, 200, "../paper-droid/assets/images/paperplane.svg")
 
 
 // Sprite constructor for paper airplane 
