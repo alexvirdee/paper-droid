@@ -55,7 +55,6 @@ function Paperplane(width, height, xPos, yPos, image) {
 
     	for (var i = 0; i < this.fires.length; i++) 
     		this.fires[i].update(); 	
-    	
     }  
 
 }
@@ -95,8 +94,8 @@ function Fire(x, y, dx, dy) {
 
 Fire.prototype.draw = function() {
 	ctx.beginPath();
-	ctx.fillStyle = "red";
-	ctx.arc(this.x, this.y, 10, 0, 2*Math.PI);
+	ctx.fillStyle = "#000";
+	ctx.arc(this.x, this.y, 2, 0, 2*Math.PI);
 	ctx.fill();
 	ctx.closePath();
 }
