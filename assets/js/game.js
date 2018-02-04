@@ -33,7 +33,7 @@ function Paperplane(width, height, xPos, yPos, image) {
     this.speedY = 0;
     this.width = width;
     this.height = height;
-    this.angle;
+    this.angle = 0;
     this.fires = [];
     this.image = new Image();
     this.image.src = image;
@@ -86,15 +86,17 @@ Paperplane.prototype.checkPos = function() {
 }
 
 Paperplane.prototype.fire = function() {
-
     var dx = /*Math.cos(this.angle)*/ 0;
     // console.log(dx);
     var dy = /*Math.sin(this.angle)*/ 0;
     // console.log(dy);
     // bullets move in direction plane is moving 
     //====================================================================================
-    var f = new Fire(Math.sign(plane.speedX), Math.sign(plane.speedY), this.xPos + this.width, this.yPos, dx, dy);
-
+    var f = new Fire (Math.sign(plane.speedX), 
+    				  Math.sign(plane.speedY), 
+    				  this.xPos + this.width, 
+    				  this.yPos, dx, dy
+    				  );
     this.fires.push(f);
 }
 
@@ -132,21 +134,22 @@ function move(e) {
     // alert(e.keyCode);
     if (e.which == 39) {
         plane.speedX = 5;
+        plane.angle += Math.PI / 2;
         console.log("Move 5 pixels to the right")
     }
     if (e.which == 37) {
         plane.speedX = -5;
-
+        plane.angle -= Math.PI / 2;
         console.log("Move 5 pixels to the left")
     }
     if (e.which == 38) {
         plane.speedY = -5;
-
+        plane.angle = 0;
         console.log("Move 5 pixels up")
     }
     if (e.which == 40) {
         plane.speedY = 5;
-
+        plane.angle = -180;
         console.log("Move 5 pixels down")
     }
     // fire bullet when spacebar is pressed
@@ -179,8 +182,6 @@ window.addEventListener("keyup", function(e) {
         // console.log("Move 5 pixels down")
     }
 });
-
-
 
 
 // function that starts up upon html loading
