@@ -44,7 +44,7 @@ function Paperplane(width, height, xPos, yPos, image) {
         //=========================
         ctx.save();
         ctx.translate(this.xPos + 20, this.yPos + 20);
-        ctx.rotate(this.angle);
+        ctx.rotate(this.angle * Math.PI/2);
         ctx.drawImage(
             this.image,
             this.width / -2,
