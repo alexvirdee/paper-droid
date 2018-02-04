@@ -25,7 +25,6 @@ var myGameArea = {
 // set coordinates of plane, size, and load img sprite
 plane = new Paperplane(35, 35, 0, 0, "../paper-droid/assets/images/paperplane.svg") 
 
-
 // Sprite constructor for paper airplane 
 function Paperplane(width, height, xPos, yPos, image) {
     this.xPos = xPos;
@@ -44,29 +43,42 @@ function Paperplane(width, height, xPos, yPos, image) {
     //     ctx.drawImage(img, xPos, yPos, width, height);
     // };
     	// image.src = "../paper-droid/assets/images/paperplane.svg";
-    	ctx = myGameArea.context;
+		ctx = myGameArea.context;
+		//=========================
+		//this is the rotation code
+		//=========================
+		ctx.save();
+		ctx.translate(this.xPos + 20, this.yPos + 20);
+		ctx.rotate(this.angle);
     	ctx.drawImage(
     		this.image, 
-    		this.xPos, 
-    		this.yPos,
+    		this.width / -2, 
+    		this.height / -2,
     		this.width, 
     		this.height
-    		);
-
-    	for (var i = 0; i < this.fires.length; i++) 
-    		this.fires[i].update(); 	
-    }  
+			);
+			ctx.restore();
+			//======================
+			//======================
+		//==========================
+		//I added these forEach loops instead of the for loops
+		this.fires.forEach(elem => {
+			elem.update();
+		}); 
+    	this.fires.forEach(elem => {
+			elem.draw();
+		}); 	
+	} 
 
 }
 
 // new position method for plane
 Paperplane.prototype.newPos = function() {
 	this.xPos += this.speedX;
-	this.yPos += this.speedY;
-
-	for (var i = 0; i < this.fires.length; i++) 
-		this.fires[i].newPos();
-
+	this.yPos += this.speedY;	
+	//=======================================================
+	//removed fire for loop and put it in the update function
+	//=======================================================
 }
 
 // method for having the plane move to the opposite side of canvas upon leaving side
@@ -84,8 +96,30 @@ Paperplane.prototype.checkPos = function() {
 
 }
 
+Paperplane.prototype.fire = function() {
+	//========================================
+	//I didnt get this so I commented it out :/
+	//========================================
+	var dx = /*Math.cos(this.angle)*/0;
+	console.log(dx);
+	var dy = /*Math.sin(this.angle)*/0;
+	console.log(dy);
+	//====================================================================================
+	//Added speeds arguments so that the bullets move in the direction the plane is moving
+	//====================================================================================
+	var f = new Fire(Math.sign(plane.speedX), Math.sign(plane.speedY), this.xPos + this.width, this.yPos, dx, dy);
 
-function Fire(x, y, dx, dy) {
+	this.fires.push(f);
+}
+
+
+function Fire(speedX, speedY, x, y, dx, dy) {
+	//===================
+	//Added speed vars
+	//===================
+	this.speedX = speedX;
+	this.speedY = speedY;
+	//===================
 	this.x = x;
 	this.y = y;
 	this.dx = dx;
@@ -101,18 +135,12 @@ Fire.prototype.draw = function() {
 }
 
 Fire.prototype.update = function() {
-	this.x += this.dx;
-	this.y += this.dy	
-}
-
-
-Paperplane.prototype.fire = function() {
-	var dx = Math.cos(this.angle);
-	var dy = Math.sin(this.angle);
-
-	var f = new Fire(this.x, this.y, dx, dy);
-
-	this.fires.push(f);
+	//============================================================================
+	//You could just multiply when you pass in the speed arguments instead of here
+	//Ex:new Fire(Math.sign(airplane.speedX) * 65, etc...)
+	//============================================================================
+	this.x += /*this.dx*/this.speedX * 6.5;
+	this.y += /*this.dy*/this.speedY * 6.5;	
 }
 
 
@@ -121,21 +149,34 @@ Paperplane.prototype.fire = function() {
 // keyCodes: Right => 39, left => 37, Up => 38, Back => 40, Spacebar => 32
 // keydown function that will move plane sprite across game canvas
 function move(e) {
-    // alert(e.keyCode);
+	// alert(e.keyCode);
+	//=======================================================================================================
+	//Im not sure how you want the rotation to work, 
+	//but you would need some conditionals to make sure it doesnt spin forever when you input movement
+	//probably would need a keyup setting angle to 0
+	//=======================================================================================================
     if (e.which == 39) {
-        plane.speedX = 5;
+		plane.speedX = 5;
+		//====================
+		//rotation use example
+		//====================
+		//plane.angle += Math.PI / 2
+		//====================
         // console.log("Move 5 pixels to the right")
     }
     if (e.which == 37) {
-        plane.speedX = -5;
+		plane.speedX = -5;
+		
         // console.log("Move 5 pixels to the left")
     }
     if (e.which == 38) {
-        plane.speedY = -5;
+		plane.speedY = -5;
+		
         // console.log("Move 5 pixels up")
     }
     if (e.which == 40) {
-        plane.speedY = 5;
+		plane.speedY = 5;
+		
         // console.log("Move 5 pixels down")
     } 
     	// fire bullet when spacebar is pressed
@@ -151,19 +192,19 @@ document.onkeydown = move;
 // event listener for slowing down paper airplane sprite when user keysup
 window.addEventListener("keyup", function(e) {
 	  if (e.which == 39) {
-        plane.speedX = 1;
+        plane.speedX === 5 ? plane.speedX = 1 : false;
         // console.log("Move 5 pixels to the right")
     }
     if (e.which == 37) {
-        plane.speedX = -1;
+        plane.speedX === -5 ? plane.speedX = -1: false;
         // console.log("Move 5 pixels to the left")
     }
     if (e.which == 38) {
-        plane.speedY = -1;
+        plane.speedY === -5 ? plane.speedY = -1 : false;
         // console.log("Move 5 pixels up")
     }
     if (e.which == 40) {
-        plane.speedY = 1;
+        plane.speedY === 5 ? plane.speedY = 1 : false;
         // console.log("Move 5 pixels down")
     }   
 }); 
@@ -179,6 +220,11 @@ function updateGameArea() {
 	plane.newPos();
 	plane.update();
 }
+
+//==============================================================================
+//BTW putting the fires array inside plane obj and updating it there too was genius!
+//Ill probably use that in my game, thanks for the idea!
+//==============================================================================
 
 
 
