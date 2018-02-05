@@ -162,11 +162,6 @@ function Target(width, height, xPos, yPos, image) {
     }
 }
 
-// targets should be moving around the canvas
-Target.prototype.update = function() {
-
-}
-
 
 // Move
 // keyCodes: Right => 39, left => 37, Up => 38, Back => 40, Spacebar => 32
