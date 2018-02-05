@@ -85,6 +85,7 @@ Paperplane.prototype.checkPos = function() {
 
 }
 
+// plane firing 
 Paperplane.prototype.fire = function() {
     var dx = /*Math.cos(this.angle)*/ 0;
     // console.log(dx);
@@ -101,6 +102,7 @@ Paperplane.prototype.fire = function() {
 }
 
 
+// fire constructor push to fires array in plane fire method
 function Fire(speedX, speedY, x, y, dx, dy) {
     // speed variables
     this.speedX = speedX;
@@ -112,6 +114,7 @@ function Fire(speedX, speedY, x, y, dx, dy) {
     this.dy = dy;
 }
 
+// draw bullets
 Fire.prototype.draw = function() {
     ctx.beginPath();
     ctx.fillStyle = "#000";
@@ -120,6 +123,7 @@ Fire.prototype.draw = function() {
     ctx.closePath();
 }
 
+// update position of bullets
 Fire.prototype.update = function() {
     this.x += /*this.dx*/ this.speedX * 6.5;
     this.y += /*this.dy*/ this.speedY * 6.5;
@@ -137,6 +141,8 @@ enemy6 = new Enemy(50, 50, 380, 280, "../paper-droid/assets/images/method-draw-i
 enemy7 = new Enemy(50, 50, 180, 120, "../paper-droid/assets/images/method-draw-image.svg")
 enemy8 = new Enemy(50, 50, 100, 300, "../paper-droid/assets/images/method-draw-image.svg")
 
+
+// enemy object constructor 
 function Enemy(width, height, xPos, yPos, image) {
     this.width = width;
     this.height = height;
@@ -164,10 +170,12 @@ function Enemy(width, height, xPos, yPos, image) {
     }
 }
 
-Enemy.prototype.move = function() {
-	this.xPos += this.speedX;
-    this.yPos += this.speedY;
+
+// method for having enemies appear in random xPos and yPos
+Enemy.prototype.random = function() {
+
 }
+
 
 // Move
 // keyCodes: Right => 39, left => 37, Up => 38, Back => 40, Spacebar => 32
