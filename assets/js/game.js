@@ -149,8 +149,10 @@ function Enemies(xPos, yPos, width, height, image) {
         );
     	 ctx.restore();
     }
+}
 
-   
+Enemies.prototype.update = function() {
+
 }
 
 
@@ -211,7 +213,6 @@ window.addEventListener("keyup", function(e) {
 });
 
 
-// function that starts up upon html loading
 function updateGameArea() {
     myGameArea.clear();
     plane.checkPos();
