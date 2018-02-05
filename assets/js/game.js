@@ -171,7 +171,7 @@ function Enemy(width, height, xPos, yPos, image) {
 }
 
 
-// method for having enemies appear in random xPos and yPos
+// method for having enemies appear in random xPos and yPos 
 Enemy.prototype.random = function() {
 
 }
