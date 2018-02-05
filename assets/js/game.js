@@ -131,19 +131,24 @@ Fire.prototype.update = function() {
 
 
 // ***** ENEMIES *****
-enemy = new Enemy(50, 50, 50, 50, "../paper-droid/assets/images/method-draw-image.svg")
-enemy1 = new Enemy(50, 50, 400, 150, "../paper-droid/assets/images/method-draw-image.svg")
-enemy2 = new Enemy(50, 50, 600, 200, "../paper-droid/assets/images/method-draw-image.svg")
-enemy3 = new Enemy(50, 50, 80, 90, "../paper-droid/assets/images/method-draw-image.svg")
-enemy4 = new Enemy(50, 50, 200, 20, "../paper-droid/assets/images/method-draw-image.svg")
-enemy5 = new Enemy(50, 50, 450, 300, "../paper-droid/assets/images/method-draw-image.svg")
-enemy6 = new Enemy(50, 50, 380, 280, "../paper-droid/assets/images/method-draw-image.svg")
-enemy7 = new Enemy(50, 50, 180, 120, "../paper-droid/assets/images/method-draw-image.svg")
-enemy8 = new Enemy(50, 50, 100, 300, "../paper-droid/assets/images/method-draw-image.svg")
+enemy = new Enemy();
+// enemy = new Enemy(50, 50, 50, 50, "../paper-droid/assets/images/method-draw-image.svg")
+// enemy1 = new Enemy(50, 50, 400, 150, "../paper-droid/assets/images/method-draw-image.svg")
+// enemy2 = new Enemy(50, 50, 600, 200, "../paper-droid/assets/images/method-draw-image.svg")
+// enemy3 = new Enemy(50, 50, 80, 90, "../paper-droid/assets/images/method-draw-image.svg")
+// enemy4 = new Enemy(50, 50, 200, 20, "../paper-droid/assets/images/method-draw-image.svg")
+// enemy5 = new Enemy(50, 50, 450, 300, "../paper-droid/assets/images/method-draw-image.svg")
+// enemy6 = new Enemy(50, 50, 380, 280, "../paper-droid/assets/images/method-draw-image.svg")
+// enemy7 = new Enemy(50, 50, 180, 120, "../paper-droid/assets/images/method-draw-image.svg")
+// enemy8 = new Enemy(50, 50, 100, 300, "../paper-droid/assets/images/method-draw-image.svg")
 
 
 // enemy object constructor 
 function Enemy(width, height, xPos, yPos, image) {
+
+	this.papers = [];
+	this.maxID = 0;
+
     this.width = width;
     this.height = height;
     this.speedX = 0;
@@ -170,10 +175,9 @@ function Enemy(width, height, xPos, yPos, image) {
     }
 }
 
-
-// method for having enemies appear in random xPos and yPos 
-Enemy.prototype.random = function() {
-
+Enemy.prototype.init = function(target) {
+	target.vx = 0;
+	target.vy = 0;
 }
 
 
@@ -240,12 +244,12 @@ function updateGameArea() {
     plane.newPos();
     plane.update();
     enemy.update();
-    enemy1.update();
-    enemy2.update();
-    enemy3.update();
-    enemy4.update();
-    enemy5.update();
-    enemy6.update();
-    enemy7.update();
-    enemy8.update();
+    // enemy1.update();
+    // enemy2.update();
+    // enemy3.update();
+    // enemy4.update();
+    // enemy5.update();
+    // enemy6.update();
+    // enemy7.update();
+    // enemy8.update();
 }
