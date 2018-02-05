@@ -44,7 +44,7 @@ function Paperplane(width, height, xPos, yPos, image) {
         //=========================
         ctx.save();
         ctx.translate(this.xPos + 20, this.yPos + 20);
-        ctx.rotate(this.angle * Math.PI/2);
+        ctx.rotate(this.angle);
         ctx.drawImage(
             this.image,
             this.width / -2,
@@ -124,6 +124,30 @@ Fire.prototype.update = function() {
     this.x += /*this.dx*/ this.speedX * 6.5;
     this.y += /*this.dy*/ this.speedY * 6.5;
 }
+
+
+// ***** ENEMIES *****
+enemy = new Enemies(50, 50, 0, 0, "../paper-droid/assets/images/enemy.png")
+
+function Enemies(xPos, yPos, width, height, image) {
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.speedX = 0;
+    this.speedY = 0;
+    this.width = width;
+    this.height = height;
+
+    this.image = new Image();
+    this.image.src = image;
+
+    ctx.drawImage(
+            this.xPos,
+            this.yPos,
+            this.width,
+            this.height
+        );
+}
+
 
 
 
