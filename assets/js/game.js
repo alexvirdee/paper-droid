@@ -11,7 +11,7 @@ var myGameArea = {
             this.canvas,
             document.body.childNodes[2] // set position of canvas in relation to childNode
         );
-        this.frameNo = 0;
+        this.frameNo = 60;
         this.interval = setInterval(updateGameArea, 20);
     },
     clear: function() {
@@ -92,11 +92,11 @@ Paperplane.prototype.fire = function() {
     // console.log(dy);
     // bullets move in direction plane is moving 
     //====================================================================================
-    var f = new Fire (Math.sign(plane.speedX), 
-    				  Math.sign(plane.speedY), 
-    				  this.xPos + this.width, 
-    				  this.yPos, dx, dy
-    				  );
+    var f = new Fire(Math.sign(plane.speedX),
+        Math.sign(plane.speedY),
+        this.xPos + this.width,
+        this.yPos, dx, dy
+    );
     this.fires.push(f);
 }
 
@@ -127,34 +127,47 @@ Fire.prototype.update = function() {
 
 
 // ***** ENEMIES *****
-enemy = new Enemies(50, 50, 0, 0, "../paper-droid/assets/images/enemy.png")
+enemy = new Enemy(50, 50, 50, 50, "../paper-droid/assets/images/method-draw-image.svg")
+enemy1 = new Enemy(50, 50, 400, 150, "../paper-droid/assets/images/method-draw-image.svg")
+enemy2 = new Enemy(50, 50, 600, 200, "../paper-droid/assets/images/method-draw-image.svg")
+enemy3 = new Enemy(50, 50, 80, 90, "../paper-droid/assets/images/method-draw-image.svg")
+enemy4 = new Enemy(50, 50, 200, 20, "../paper-droid/assets/images/method-draw-image.svg")
+enemy5 = new Enemy(50, 50, 450, 300, "../paper-droid/assets/images/method-draw-image.svg")
+enemy6 = new Enemy(50, 50, 380, 280, "../paper-droid/assets/images/method-draw-image.svg")
+enemy7 = new Enemy(50, 50, 180, 120, "../paper-droid/assets/images/method-draw-image.svg")
+enemy8 = new Enemy(50, 50, 100, 300, "../paper-droid/assets/images/method-draw-image.svg")
 
-function Enemies(xPos, yPos, width, height, image) {
-    this.xPos = xPos;
-    this.yPos = yPos;
-    this.speedX = 0;
-    this.speedY = 0;
+function Enemy(width, height, xPos, yPos, image) {
     this.width = width;
     this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;
+
+    this.xPos = xPos;
+    this.yPos = yPos;
 
     this.image = new Image();
     this.image.src = image;
     this.update = function() {
-    	 ctx = myGameArea.context;
-    	 ctx.drawImage(
-            this.xPos,
-            this.yPos,
+        ctx = myGameArea.context;
+        ctx.save();
+        ctx.translate(this.xPos + 20, this.yPos + 20);
+        ctx.rotate(this.angle);
+        ctx.drawImage(
+            this.image,
+            this.width / -2,
+            this.height / -2,
             this.width,
             this.height
         );
-    	 ctx.restore();
+        ctx.restore();
     }
 }
 
-Enemies.prototype.update = function() {
-
+Enemy.prototype.move = function() {
+	this.xPos += this.speedX;
+    this.yPos += this.speedY;
 }
-
 
 // Move
 // keyCodes: Right => 39, left => 37, Up => 38, Back => 40, Spacebar => 32
@@ -218,4 +231,13 @@ function updateGameArea() {
     plane.checkPos();
     plane.newPos();
     plane.update();
+    enemy.update();
+    enemy1.update();
+    enemy2.update();
+    enemy3.update();
+    enemy4.update();
+    enemy5.update();
+    enemy6.update();
+    enemy7.update();
+    enemy8.update();
 }
