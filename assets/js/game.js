@@ -130,30 +130,17 @@ Fire.prototype.update = function() {
 }
 
 
-// ***** ENEMIES *****
-enemy = new Enemy();
-// enemy = new Enemy(50, 50, 50, 50, "../paper-droid/assets/images/method-draw-image.svg")
-// enemy1 = new Enemy(50, 50, 400, 150, "../paper-droid/assets/images/method-draw-image.svg")
-// enemy2 = new Enemy(50, 50, 600, 200, "../paper-droid/assets/images/method-draw-image.svg")
-// enemy3 = new Enemy(50, 50, 80, 90, "../paper-droid/assets/images/method-draw-image.svg")
-// enemy4 = new Enemy(50, 50, 200, 20, "../paper-droid/assets/images/method-draw-image.svg")
-// enemy5 = new Enemy(50, 50, 450, 300, "../paper-droid/assets/images/method-draw-image.svg")
-// enemy6 = new Enemy(50, 50, 380, 280, "../paper-droid/assets/images/method-draw-image.svg")
-// enemy7 = new Enemy(50, 50, 180, 120, "../paper-droid/assets/images/method-draw-image.svg")
-// enemy8 = new Enemy(50, 50, 100, 300, "../paper-droid/assets/images/method-draw-image.svg")
-
-
+// ***** PAPER TARGETS *****
+target = new Target(80, 100, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
+var targets = [];
 // enemy object constructor 
-function Enemy(width, height, xPos, yPos, image) {
-
-	this.papers = [];
-	this.maxID = 0;
+function Target(width, height, xPos, yPos, image) {
 
     this.width = width;
     this.height = height;
     this.speedX = 0;
     this.speedY = 0;
-
+    this.angle = 0;
     this.xPos = xPos;
     this.yPos = yPos;
 
@@ -162,8 +149,8 @@ function Enemy(width, height, xPos, yPos, image) {
     this.update = function() {
         ctx = myGameArea.context;
         ctx.save();
-        ctx.translate(this.xPos + 20, this.yPos + 20);
-        ctx.rotate(this.angle);
+        ctx.translate(this.xPos + 10, this.yPos + 10);
+        ctx.rotate(this.angle += 0.05);
         ctx.drawImage(
             this.image,
             this.width / -2,
@@ -175,9 +162,9 @@ function Enemy(width, height, xPos, yPos, image) {
     }
 }
 
-Enemy.prototype.init = function(target) {
-	target.vx = 0;
-	target.vy = 0;
+// targets should be moving around the canvas
+Target.prototype.update = function() {
+
 }
 
 
@@ -243,13 +230,5 @@ function updateGameArea() {
     plane.checkPos();
     plane.newPos();
     plane.update();
-    enemy.update();
-    // enemy1.update();
-    // enemy2.update();
-    // enemy3.update();
-    // enemy4.update();
-    // enemy5.update();
-    // enemy6.update();
-    // enemy7.update();
-    // enemy8.update();
+    target.update();
 }
