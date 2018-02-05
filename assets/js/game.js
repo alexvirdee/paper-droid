@@ -139,16 +139,19 @@ function Enemies(xPos, yPos, width, height, image) {
 
     this.image = new Image();
     this.image.src = image;
-
-    ctx.drawImage(
+    this.update = function() {
+    	 ctx = myGameArea.context;
+    	 ctx.drawImage(
             this.xPos,
             this.yPos,
             this.width,
             this.height
         );
+    	 ctx.restore();
+    }
+
+   
 }
-
-
 
 
 // Move
