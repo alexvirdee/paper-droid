@@ -25,7 +25,7 @@ var myGameArea = {
 }
 
 // ***** GAME COMPONENT ******
-function Component(width, height, color, xPos, yPos) {
+function Score(width, height, color, xPos, yPos) {
     this.width = width;
     this.height = height;
     this.xPos = xPos;
@@ -40,23 +40,24 @@ function Component(width, height, color, xPos, yPos) {
         //     ctx.fillStyle = color;
         //     ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
         // }
-        ctx.font = "25px Consolas";
-		ctx.fillText("SCORE: " + myGameArea.frameNo, myGameArea.canvas.width - 150, 40);
+        ctx.font = "25px Vector_Battle";
+        ctx.fillText("SCORE: " + myGameArea.frameNo, myGameArea.canvas.width - 150, 40);
     }
 }
 
 // **** SCORE *****
 var myScore = 0;
-myScore = new Component("20px", "Consolas", "black", 700, 350, "text");
+myScore = new Score("20px", "Vector_Battle", "black", 700, 350, "text");
 
 
 // ***** GAME OVER TEXT *****
 function gameOverDisplay() {
-    ctx.fillStyle = "rgba(255, 0, 0, 1)";
-    ctx.font = "bold 60px Consolas";
-    ctx.fillText("GAME OVER", myGameArea.canvas.width/2, myGameArea.canvas.height/2);
+	ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = "rgba(13, 6, 6, 1)";
+    ctx.font = "bold 60px Vector_Battle";
+    ctx.fillText("GAME OVER", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2);
 }
-
 
 // set coordinates of plane, size, and load img sprite
 plane = new Paperplane(35, 35, 400, 200, "../paper-droid/assets/images/paperplane.svg");
@@ -99,21 +100,23 @@ function Paperplane(width, height, xPos, yPos, image, points) {
         });
     }
     this.collide = function(target) {
+        // collision detection based on coordinates of plane & targets
         var left = this.xPos;
         var right = this.xPos + (this.width);
         var top = this.yPos;
         var bottom = this.yPos + (this.height);
-        var otherLeft = target.xPos;
-        var otherRight = target.xPos;
-        var otherTop = target.yPos;
-        var otherBottom = target.yPos;
+        var targetLeft = target.xPos;
+        var targetRight = target.xPos;
+        var targetTop = target.yPos;
+        var targetBottom = target.yPos;
         var crash = true;
-        if ((bottom < otherTop) ||
-            (top > otherBottom) ||
-            (right < otherLeft) ||
-            (left > otherRight)) {
+        if ((bottom < targetTop) ||
+            (top > targetBottom) ||
+            (right < targetLeft) ||
+            (left > targetRight)) {
             crash = false;
         }
+
         return crash;
     }
 }
@@ -154,7 +157,6 @@ Paperplane.prototype.fire = function() {
     this.fires.push(f);
 }
 
-
 // fire constructor push to fires array in plane fire method
 function Fire(speedX, speedY, x, y, dx, dy) {
     // speed variables
@@ -184,6 +186,10 @@ Fire.prototype.update = function() {
 
 
 // ***** PAPER TARGETS *****
+target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
+target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
+target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
+target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
 target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
 var targets = new Array();
 
@@ -275,7 +281,7 @@ window.addEventListener("keyup", function(e) {
 
 function updateGameArea() {
     if (plane.collide(target)) {
-    	gameOverDisplay();
+        gameOverDisplay();
         myGameArea.stop();
         // document.location.reload();
         // alert("You crashed!");
