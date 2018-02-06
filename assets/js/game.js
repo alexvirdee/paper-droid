@@ -24,8 +24,29 @@ var myGameArea = {
     }
 }
 
+// ***** GAME COMPONENT ******
+function Component(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y; 
+    this.update = function() {
+    ctx = myGameArea.context;
+    if (this.type == "text") {
+      ctx.font = this.width + " " + this.height;
+      ctx.fillStyle = color;
+      ctx.fillText(this.text, this.x, this.y);
+    } else {
+      ctx.fillStyle = color;
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+ }
+}
+
+
 // **** SCORE *****
-let score;
+var myScore;
+myScore = new Component("15px", "Consolas", "black", 280, 40, "text");
 
 
 
@@ -251,10 +272,14 @@ window.addEventListener("keyup", function(e) {
 function updateGameArea() {
     if (plane.collide(target)) {
         myGameArea.stop();
-        alert("You crashed!");
+         alert("You crashed!");
     } else {
         myGameArea.clear();
+        myGameArea.frameNo += 1;
         plane.checkPos();
+        myScore.text = "SCORE: " + myGameArea.frameNo;
+        console.log(myScore.text);
+        myScore.update();
         plane.newPos();
         plane.update();
         target.update();
