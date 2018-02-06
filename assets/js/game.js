@@ -290,7 +290,7 @@ function Target(width, height, image) {
             (right < targetLeft) ||
             (left > targetRight)) {
             hit = false;
-            console.log("MISSED");
+           console.log("MISSED");
             // console.log(hit);
 
         } else {
@@ -362,11 +362,17 @@ window.addEventListener("keyup", function(e) {
 
 
 function updateGameArea() {
-    if (plane.collide(targets)) {
-        console.log("collided")
-        gameOverDisplay();
-        myGameArea.stop();
-    } else {
+	for (var i = 0; i < targets.length; i++) {
+		if (plane.collide(targets[i])) {
+			console.log("collided");
+		}
+	}
+
+    // if (plane.collide(targets)) {
+    //     console.log("collided")
+    //     gameOverDisplay();
+    //     myGameArea.stop();
+    // } else {
         myGameArea.clear();
         myGameArea.frameNo += 20;
         plane.checkPos();
@@ -376,5 +382,5 @@ function updateGameArea() {
         plane.update();
         makePaperballs();
         drawPaperballs();
-    }
+    // }
 }
