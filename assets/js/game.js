@@ -32,14 +32,6 @@ function Score(width, height, color, xPos, yPos) {
     this.yPos = yPos;
     this.update = function() {
         ctx = myGameArea.context;
-        // if (this.type == "text") {
-        //     ctx.font = this.width + " " + this.height;
-        //     ctx.fillStyle = color;
-        //     ctx.fillText(this.text, this.xPos, this.yPos);
-        // } else {
-        //     ctx.fillStyle = color;
-        //     ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
-        // }
         ctx.font = "25px Vector_Battle";
         ctx.fillText("SCORE: " + myGameArea.frameNo / 20, myGameArea.canvas.width - 160, 40);
     }
@@ -58,14 +50,6 @@ function Lives(width, height, color, xPos, yPos, plane) {
     this.yPos = yPos;
     this.update = function() {
         ctx = myGameArea.context;
-        // if (this.type == "text") {
-        //     ctx.font = this.width + " " + this.height;
-        //     ctx.fillStyle = color;
-        //     ctx.fillText(this.text, this.xPos, this.yPos);
-        // } else {
-        //     ctx.fillStyle = color;
-        //     ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
-        // }
         ctx.font = "25px Vector_Battle";
         ctx.fillText("LIVES: " + this.lives, myGameArea.canvas.width - 780, 40);
     }
@@ -73,14 +57,13 @@ function Lives(width, height, color, xPos, yPos, plane) {
 
 lives = new Lives("20px", "Vector_Battle", "black", 700, 350, "text");
 
-
 // ***** GAME OVER TEXT *****
 function gameOverDisplay() {
 	ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     ctx.fillStyle = "rgba(13, 6, 6, 1)";
     ctx.font = "bold 60px Vector_Battle";
-    ctx.fillText("GAME OVER", 400, 400);
+    ctx.fillText("GAME OVER", myGameArea.canvas.width/2, myGameArea.canvas.height/2);
 }
 
 // set coordinates of plane, size, and load img sprite
@@ -360,13 +343,13 @@ window.addEventListener("keyup", function(e) {
 
 function updateGameArea() {
     for (var i = 0; i < targets.length; i++) {
-        if (plane.collide(targets[i])) {
-            // gameOverDisplay();
+        if (plane.collide(targets[i])) {      
             console.log("collided");
+            lives.lives-=1;
+            // gameOverDisplay();
             myGameArea.stop();
         }
     }
-
     myGameArea.clear();
     myGameArea.frameNo += 20;
     plane.checkPos();
@@ -376,5 +359,4 @@ function updateGameArea() {
     plane.update();
     makePaperballs();
     drawPaperballs();
-
 }
