@@ -41,7 +41,7 @@ function Score(width, height, color, xPos, yPos) {
         //     ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
         // }
         ctx.font = "25px Vector_Battle";
-        ctx.fillText("SCORE: " + myGameArea.frameNo, myGameArea.canvas.width - 150, 40);
+        ctx.fillText("SCORE: " + myGameArea.frameNo / 20, myGameArea.canvas.width - 160, 40);
     }
 }
 
@@ -91,7 +91,7 @@ function Paperplane(width, height, xPos, yPos, image, points) {
             this.height
         );
         ctx.restore();
-
+        
         this.fires.forEach(elem => {
             elem.update();
         });
@@ -115,9 +115,12 @@ function Paperplane(width, height, xPos, yPos, image, points) {
             (right < targetLeft) ||
             (left > targetRight)) {
             crash = false;
+
         }
 
-        return crash;
+        target.destroyed = true;
+
+        // return crash;
     }
 }
 
@@ -158,13 +161,15 @@ Paperplane.prototype.fire = function() {
 }
 
 // fire constructor push to fires array in plane fire method
-function Fire(speedX, speedY, x, y, dx, dy) {
+function Fire(speedX, speedY, xPos, yPos, dx, dy) {
     // speed variables
     this.speedX = speedX;
     this.speedY = speedY;
+    this.width = 1;
+    this.height = 1;
 
-    this.x = x;
-    this.y = y;
+    this.xPos = xPos;
+    this.yPos = yPos;
     this.dx = dx;
     this.dy = dy;
 }
@@ -173,33 +178,59 @@ function Fire(speedX, speedY, x, y, dx, dy) {
 Fire.prototype.draw = function() {
     ctx.beginPath();
     ctx.fillStyle = "#000";
-    ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI);
+    ctx.arc(this.xPos, this.yPos, 2, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
 }
 
 // update position of bullets
 Fire.prototype.update = function() {
-    this.x += /*this.dx*/ this.speedX * 6.5;
-    this.y += /*this.dy*/ this.speedY * 6.5;
+    this.xPos += /*this.dx*/ this.speedX * 6.5;
+    this.yPos += /*this.dy*/ this.speedY * 6.5;
 }
 
 
 // ***** PAPER TARGETS *****
-target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-target2 = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-target3 = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-target4 = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-target5 = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
 var targets = new Array();
 
+// every 3 seconds push into targets array
+function makePaperballs() {
+    if (everyInterval(2000) && targets.length < 11) {
+        targets.push(new Target(120, 150, "../paper-droid/assets/images/method-draw-image.svg"));
+    }
+}
+
+
+function drawPaperballs() {
+
+    targets.forEach(function(e) {
+    	plane.fires.forEach(function(e2) {
+    		e.collide(e2);
+    	});
+        e.update();
+    });
+   var results = targets.filter(function(elem) {
+   		return elem.destroyed === false;
+    });
+   targets = results;
+}
+
+var everyInterval = ((n) => {
+    if ((myGameArea.frameNo / n) % 1 === 0) {
+        return true;
+    } else {
+        return false;
+    }
+});
+
 // target object constructor 
-function Target(width, height, xPos, yPos, image) {
+function Target(width, height, image) {
     this.width = width;
     this.height = height;
     this.speedX = 0;
     this.speedY = 0;
     this.angle = 0;
+    this.destroyed = false;
     this.xPos = Math.floor(Math.random() * 600);
     this.yPos = Math.floor(Math.random() * 200);
 
@@ -219,7 +250,39 @@ function Target(width, height, xPos, yPos, image) {
         );
         ctx.restore();
     }
+    this.collide = function(target) {
+        // collision detection based on coordinates of plane & targets
+        var left = this.xPos;
+        var right = this.xPos + (this.width);
+        var top = this.yPos;
+        var bottom = this.yPos + (this.height);
+        var targetLeft = target.xPos;
+        var targetRight = target.xPos + (target.width);
+        var targetTop = target.yPos;
+        var targetBottom = target.yPos + (target.height);
+        var hit = true;
+        if ((bottom < targetTop) ||
+            (top > targetBottom) ||
+            (right < targetLeft) ||
+            (left > targetRight)) {
+            hit = false;
+        	// console.log("Not hit");
+        	console.log(hit);
+
+        } else {
+        	this.destroyed = true;
+        	// console.log("Hit")
+        	console.log(hit);
+        	
+        	
+        }
+        // return crash;
+    }
+
 }
+
+// destroying paper ball targets 
+
 
 
 // Move
@@ -280,32 +343,20 @@ window.addEventListener("keyup", function(e) {
 
 
 function updateGameArea() {
-    if (plane.collide(target) ||
-    	 plane.collide(target2) ||
-    	 plane.collide(target3) ||
-    	 plane.collide(target4) ||
-    	 plane.collide(target5)
-    	) {
-        gameOverDisplay();
-        myGameArea.stop();
-        // document.location.reload();
-        // alert("You crashed!");
-    } else {
-        myGameArea.clear();
-        myGameArea.frameNo += 1;
-        plane.checkPos();
-        myScore.update();
-        plane.newPos();
-        plane.update();
-        target.update();
-        target2.update();
-        target3.update();
-        target4.update();
-        target5.update();
-        target.xPos += 0.5;
-        target2.xPos += 0.5;
-        target3.xPos += 0.5;
-        target4.xPos += 0.5;
-        target5.xPos += 0.5;
-    }
+	if (plane.collide(targets)) {
+		console.log("collided")
+		myGameArea.stop();
+		gameOverDisplay();
+	} else {
+	myGameArea.clear();
+    myGameArea.frameNo += 20;
+    plane.checkPos();
+    myScore.update();
+    plane.newPos();
+    plane.update();
+    makePaperballs();
+    drawPaperballs();
+}
+    
+
 }
