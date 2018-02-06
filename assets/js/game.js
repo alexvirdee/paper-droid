@@ -1,6 +1,5 @@
 // Alex Virdee 2018 IRONHACK PROJECT
 
-
 // Draw gameArea object
 // Set the canvas dimensions 
 // start, clear, and stop functions
@@ -255,7 +254,6 @@ function updateGameArea() {
         plane.newPos();
         plane.update();
         target.update();
-
 
         target.xPos += 0.5;
     }
