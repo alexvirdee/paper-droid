@@ -187,10 +187,10 @@ Fire.prototype.update = function() {
 
 // ***** PAPER TARGETS *****
 target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
+target2 = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
+target3 = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
+target4 = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
+target5 = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
 var targets = new Array();
 
 // target object constructor 
@@ -280,7 +280,12 @@ window.addEventListener("keyup", function(e) {
 
 
 function updateGameArea() {
-    if (plane.collide(target)) {
+    if (plane.collide(target) ||
+    	 plane.collide(target2) ||
+    	 plane.collide(target3) ||
+    	 plane.collide(target4) ||
+    	 plane.collide(target5)
+    	) {
         gameOverDisplay();
         myGameArea.stop();
         // document.location.reload();
@@ -293,6 +298,14 @@ function updateGameArea() {
         plane.newPos();
         plane.update();
         target.update();
+        target2.update();
+        target3.update();
+        target4.update();
+        target5.update();
         target.xPos += 0.5;
+        target2.xPos += 0.5;
+        target3.xPos += 0.5;
+        target4.xPos += 0.5;
+        target5.xPos += 0.5;
     }
 }
