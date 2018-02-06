@@ -1,3 +1,6 @@
+// Alex Virdee 2018 IRONHACK PROJECT
+
+
 // Draw gameArea object
 // Set the canvas dimensions 
 // start, clear, and stop functions
@@ -11,26 +14,8 @@ var myGameArea = {
             this.canvas,
             document.body.childNodes[2] // set position of canvas in relation to childNode
         );
-        this.frameNo = 60;
+        this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
-    },
-    animate: function(loop) {
-    	var rf = (function() {
-    		return window.requestAnimationFrame || 
-    			   window.webkitRequestAnimationFrame ||
-    			   window.mozRequestAnimationFrame ||    			
-    			   window.oRequestAnimationFrame ||
-    			   window.msRequestAnimationFrame ||
-    			   function(cb, el) {
-    			   		window.setTimeout(cb, 1000/60);
-    			   }
-    	})();
-
-    	var l = function() {
-    		loop();
-    		rf(l, this.canvas)
-    	}
-    	rf(l, this.canvas);
     },
     clear: function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -41,11 +26,12 @@ var myGameArea = {
 }
 
 
+
 // set coordinates of plane, size, and load img sprite
 plane = new Paperplane(35, 35, 400, 200, "../paper-droid/assets/images/paperplane.svg")
 
 // Sprite constructor for paper airplane 
-function Paperplane(width, height, xPos, yPos, image) {
+function Paperplane(width, height, xPos, yPos, image, points) {
     this.xPos = xPos;
     this.yPos = yPos;
     this.speedX = 0;
@@ -53,6 +39,7 @@ function Paperplane(width, height, xPos, yPos, image) {
     this.width = width;
     this.height = height;
     this.angle = 0;
+    this.points = points;
     this.fires = [];
     this.image = new Image();
     this.image.src = image;
@@ -79,6 +66,24 @@ function Paperplane(width, height, xPos, yPos, image) {
         this.fires.forEach(elem => {
             elem.draw();
         });
+    }
+    this.collide = function(target) {
+        var left = this.xPos;
+        var right = this.xPos + (this.width);
+        var top = this.yPos;
+        var bottom = this.yPos + (this.height);
+        var otherLeft = target.xPos + 10;
+        var otherRight = target.xPos;
+        var otherTop = target.yPos;
+        var otherBottom = target.yPos + 10;
+        var crash = true;
+        if ((bottom < otherTop) ||
+            (top > otherBottom) ||
+            (right < otherLeft) ||
+            (left > otherRight)) {
+            crash = false;
+        }
+        return crash;
     }
 
 }
@@ -151,7 +156,8 @@ Fire.prototype.update = function() {
 
 // ***** PAPER TARGETS *****
 target = new Target(80, 100, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-var targets = [];
+
+
 // enemy object constructor 
 function Target(width, height, xPos, yPos, image) {
 
@@ -160,8 +166,8 @@ function Target(width, height, xPos, yPos, image) {
     this.speedX = 0;
     this.speedY = 0;
     this.angle = 0;
-    this.xPos = xPos;
-    this.yPos = yPos;
+    this.xPos = Math.floor(Math.random() * 600);
+    this.yPos = Math.floor(Math.random() * 200);
 
     this.image = new Image();
     this.image.src = image;
@@ -169,7 +175,7 @@ function Target(width, height, xPos, yPos, image) {
         ctx = myGameArea.context;
         ctx.save();
         ctx.translate(this.xPos + 10, this.yPos + 10);
-        ctx.rotate(this.angle += 0.05);
+        ctx.rotate(this.angle += 0.1);
         ctx.drawImage(
             this.image,
             this.width / -2,
@@ -240,9 +246,17 @@ window.addEventListener("keyup", function(e) {
 
 
 function updateGameArea() {
-    myGameArea.clear();
-    plane.checkPos();
-    plane.newPos();
-    plane.update();
-    target.update();
+    if (plane.collide(target)) {
+        myGameArea.stop();
+        alert("You crashed!");
+    } else {
+        myGameArea.clear();
+        plane.checkPos();
+        plane.newPos();
+        plane.update();
+        target.update();
+
+
+        target.xPos += 0.5;
+    }
 }
