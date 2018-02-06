@@ -32,17 +32,18 @@ function Component(width, height, color, xPos, yPos) {
     this.yPos = yPos;
     this.update = function() {
         ctx = myGameArea.context;
-        if (this.type == "text") {
-            ctx.font = this.width + " " + this.height;
-            ctx.fillStyle = color;
-            ctx.fillText(this.text, this.xPos, this.yPos);
-        } else {
-            ctx.fillStyle = color;
-            ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
-        }
+        // if (this.type == "text") {
+        //     ctx.font = this.width + " " + this.height;
+        //     ctx.fillStyle = color;
+        //     ctx.fillText(this.text, this.xPos, this.yPos);
+        // } else {
+        //     ctx.fillStyle = color;
+        //     ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
+        // }
+        ctx.font = "25px Consolas";
+		ctx.fillText("SCORE: " + myGameArea.frameNo, myGameArea.canvas.width - 150, 40);
     }
 }
-
 
 // **** SCORE *****
 var myScore = 0;
@@ -58,7 +59,7 @@ function gameOverDisplay() {
 
 
 // set coordinates of plane, size, and load img sprite
-plane = new Paperplane(35, 35, 400, 200, "../paper-droid/assets/images/paperplane.svg")
+plane = new Paperplane(35, 35, 400, 200, "../paper-droid/assets/images/paperplane.svg");
 
 // Sprite constructor for paper airplane 
 function Paperplane(width, height, xPos, yPos, image, points) {
@@ -135,7 +136,6 @@ Paperplane.prototype.checkPos = function() {
     } else if (plane.yPos > myGameArea.canvas.height) {
         this.yPos = 0;
     }
-
 }
 
 // plane firing 
@@ -185,11 +185,10 @@ Fire.prototype.update = function() {
 
 // ***** PAPER TARGETS *****
 target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-var targets = [];
+var targets = new Array();
 
-// enemy object constructor 
+// target object constructor 
 function Target(width, height, xPos, yPos, image) {
-
     this.width = width;
     this.height = height;
     this.speedX = 0;
@@ -212,7 +211,6 @@ function Target(width, height, xPos, yPos, image) {
             this.width,
             this.height
         );
-
         ctx.restore();
     }
 }
@@ -279,14 +277,12 @@ function updateGameArea() {
     if (plane.collide(target)) {
     	gameOverDisplay();
         myGameArea.stop();
-        document.location.reload();
+        // document.location.reload();
         // alert("You crashed!");
     } else {
         myGameArea.clear();
         myGameArea.frameNo += 1;
         plane.checkPos();
-        myScore.text = "SCORE: " + myGameArea.frameNo;
-        console.log(myScore.text);
         myScore.update();
         plane.newPos();
         plane.update();
