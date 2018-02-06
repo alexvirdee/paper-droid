@@ -52,7 +52,7 @@ myScore = new Score("20px", "Vector_Battle", "black", 700, 350, "text");
 
 // ***** GAME OVER TEXT *****
 function gameOverDisplay() {
-	ctx.textBaseline = 'middle';
+    ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     ctx.fillStyle = "rgba(13, 6, 6, 1)";
     ctx.font = "bold 60px Vector_Battle";
@@ -106,21 +106,17 @@ function Paperplane(width, height, xPos, yPos, image, points) {
         var top = this.yPos;
         var bottom = this.yPos + (this.height);
         var targetLeft = target.xPos;
-        var targetRight = target.xPos;
+        var targetRight = target.xPos + (this.width);
         var targetTop = target.yPos;
-        var targetBottom = target.yPos;
-        var crash = true;
+        var targetBottom = target.yPos + (this.height);
+        var collided = true;
         if ((bottom < targetTop) ||
             (top > targetBottom) ||
             (right < targetLeft) ||
             (left > targetRight)) {
-            crash = false;
-
+            collided = false;
         }
-
-        target.destroyed = true;
-
-        // return crash;
+        // return collided;
     }
 }
 
@@ -202,19 +198,19 @@ function makePaperballs() {
 
 
 function drawPaperballs() {
-	// loop through targets array
+    // loop through targets array
     targets.forEach(function(e) {
-    	// loop through fires array in paperplane object constructor
-    	plane.fires.forEach(function(e2) {
-    		e.collide(e2);
-    	});
+        // loop through fires array in paperplane object constructor
+        plane.fires.forEach(function(e2) {
+            e.collide(e2);
+        });
         e.update();
     });
-   // filter destoryed paper targets
-   var results = targets.filter(function(elem) {
-   		return elem.destroyed === false;
+    // filter destoryed paper targets
+    var results = targets.filter(function(elem) {
+        return elem.destroyed === false;
     });
-   targets = results;
+    targets = results;
 }
 
 // interval for game area 
@@ -269,21 +265,19 @@ function Target(width, height, image) {
             (right < targetLeft) ||
             (left > targetRight)) {
             hit = false;
-        	// console.log("Not hit");
-        	console.log(hit);
+            // console.log("Not hit");
+            console.log(hit);
 
         } else {
-        	// destroying paper ball targets 
-        	this.destroyed = true;
-        	// console.log("Hit")
-        	console.log(hit);   	
+            // destroying paper ball targets 
+            this.destroyed = true;
+            // console.log("Hit")
+            console.log(hit);
         }
         // return crash;
     }
 
 }
-
-
 
 
 
@@ -345,20 +339,20 @@ window.addEventListener("keyup", function(e) {
 
 
 function updateGameArea() {
-	if (plane.collide(targets)) {
-		console.log("collided")
-		myGameArea.stop();
-		gameOverDisplay();
-	} else {
-	myGameArea.clear();
-    myGameArea.frameNo += 20;
-    plane.checkPos();
-    myScore.update();
-    plane.newPos();
-    plane.update();
-    makePaperballs();
-    drawPaperballs();
-}
-    
+    if (plane.collide(targets)) {
+        console.log("collided")
+        gameOverDisplay();
+        myGameArea.stop();
+    } else {
+        myGameArea.clear();
+        myGameArea.frameNo += 20;
+        plane.checkPos();
+        myScore.update();
+        plane.newPos();
+        plane.update();
+        makePaperballs();
+        drawPaperballs();
+    }
+
 
 }
