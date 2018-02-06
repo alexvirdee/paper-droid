@@ -91,7 +91,7 @@ function Paperplane(width, height, xPos, yPos, image, points) {
             this.height
         );
         ctx.restore();
-        
+
         this.fires.forEach(elem => {
             elem.update();
         });
@@ -193,7 +193,7 @@ Fire.prototype.update = function() {
 // ***** PAPER TARGETS *****
 var targets = new Array();
 
-// every 3 seconds push into targets array
+// every 3 seconds push a target into targets array
 function makePaperballs() {
     if (everyInterval(2000) && targets.length < 11) {
         targets.push(new Target(120, 150, "../paper-droid/assets/images/method-draw-image.svg"));
@@ -202,19 +202,22 @@ function makePaperballs() {
 
 
 function drawPaperballs() {
-
+	// loop through targets array
     targets.forEach(function(e) {
+    	// loop through fires array in paperplane object constructor
     	plane.fires.forEach(function(e2) {
     		e.collide(e2);
     	});
         e.update();
     });
+   // filter destoryed paper targets
    var results = targets.filter(function(elem) {
    		return elem.destroyed === false;
     });
    targets = results;
 }
 
+// interval for game area 
 var everyInterval = ((n) => {
     if ((myGameArea.frameNo / n) % 1 === 0) {
         return true;
@@ -270,18 +273,17 @@ function Target(width, height, image) {
         	console.log(hit);
 
         } else {
+        	// destroying paper ball targets 
         	this.destroyed = true;
         	// console.log("Hit")
-        	console.log(hit);
-        	
-        	
+        	console.log(hit);   	
         }
         // return crash;
     }
 
 }
 
-// destroying paper ball targets 
+
 
 
 
