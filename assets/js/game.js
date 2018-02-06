@@ -24,7 +24,7 @@ var myGameArea = {
     }
 }
 
-// ***** GAME COMPONENT ******
+// ***** SCORE COMPONENT ******
 function Score(width, height, color, xPos, yPos) {
     this.width = width;
     this.height = height;
@@ -48,6 +48,30 @@ function Score(width, height, color, xPos, yPos) {
 // **** SCORE *****
 var myScore = 0;
 myScore = new Score("20px", "Vector_Battle", "black", 700, 350, "text");
+
+// ***** LIVES COMPONENT ******
+function Lives(width, height, color, xPos, yPos, plane) {
+    this.width = width;
+    this.height = height;
+    this.lives = plane.lives;
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.update = function() {
+        ctx = myGameArea.context;
+        // if (this.type == "text") {
+        //     ctx.font = this.width + " " + this.height;
+        //     ctx.fillStyle = color;
+        //     ctx.fillText(this.text, this.xPos, this.yPos);
+        // } else {
+        //     ctx.fillStyle = color;
+        //     ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
+        // }
+        ctx.font = "25px Vector_Battle";
+        ctx.fillText("LIVES: " + this.lives, myGameArea.canvas.width - 780, 40);
+    }
+}
+
+lives = new Lives("20px", "Vector_Battle", "black", 700, 350, "text");
 
 
 // ***** GAME OVER TEXT *****
@@ -266,14 +290,14 @@ function Target(width, height, image) {
             (right < targetLeft) ||
             (left > targetRight)) {
             hit = false;
-            // console.log("Not hit");
-            console.log(hit);
+            console.log("MISSED");
+            // console.log(hit);
 
         } else {
             // destroying paper ball targets 
             this.destroyed = true;
-            // console.log("Hit")
-            console.log(hit);
+            console.log("HIT!");
+            // console.log(hit);
         }
         // return crash;
     }
@@ -347,6 +371,7 @@ function updateGameArea() {
         myGameArea.frameNo += 20;
         plane.checkPos();
         myScore.update();
+        lives.update();
         plane.newPos();
         plane.update();
         makePaperballs();
