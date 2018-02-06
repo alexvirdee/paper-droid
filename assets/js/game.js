@@ -53,7 +53,7 @@ myScore = new Score("20px", "Vector_Battle", "black", 700, 350, "text");
 function Lives(width, height, color, xPos, yPos, plane) {
     this.width = width;
     this.height = height;
-    this.lives = plane.lives;
+    this.lives = 3;
     this.xPos = xPos;
     this.yPos = yPos;
     this.update = function() {
@@ -76,8 +76,8 @@ lives = new Lives("20px", "Vector_Battle", "black", 700, 350, "text");
 
 // ***** GAME OVER TEXT *****
 function gameOverDisplay() {
-    ctx.textBaseline = 'middle';
-    ctx.textAlign = 'center';
+    // ctx.textBaseline = 'middle';
+    // ctx.textAlign = 'center';
     ctx.fillStyle = "rgba(13, 6, 6, 1)";
     ctx.font = "bold 60px Vector_Battle";
     ctx.fillText("GAME OVER", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2);
@@ -141,7 +141,7 @@ function Paperplane(width, height, xPos, yPos, image, points) {
             (left > targetRight)) {
             collided = false;
         }
-        // return collided;
+        return collided;
     }
 }
 
@@ -290,7 +290,7 @@ function Target(width, height, image) {
             (right < targetLeft) ||
             (left > targetRight)) {
             hit = false;
-           console.log("MISSED");
+            console.log("MISSED");
             // console.log(hit);
 
         } else {
@@ -362,25 +362,22 @@ window.addEventListener("keyup", function(e) {
 
 
 function updateGameArea() {
-	for (var i = 0; i < targets.length; i++) {
-		if (plane.collide(targets[i])) {
-			console.log("collided");
-		}
-	}
+    for (var i = 0; i < targets.length; i++) {
+        if (plane.collide(targets[i])) {
+            gameOverDisplay();
+            console.log("collided");
+            myGameArea.stop();
+        }
+    }
 
-    // if (plane.collide(targets)) {
-    //     console.log("collided")
-    //     gameOverDisplay();
-    //     myGameArea.stop();
-    // } else {
-        myGameArea.clear();
-        myGameArea.frameNo += 20;
-        plane.checkPos();
-        myScore.update();
-        lives.update();
-        plane.newPos();
-        plane.update();
-        makePaperballs();
-        drawPaperballs();
-    // }
+    myGameArea.clear();
+    myGameArea.frameNo += 20;
+    plane.checkPos();
+    myScore.update();
+    lives.update();
+    plane.newPos();
+    plane.update();
+    makePaperballs();
+    drawPaperballs();
+
 }
