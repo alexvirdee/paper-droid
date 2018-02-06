@@ -76,11 +76,11 @@ lives = new Lives("20px", "Vector_Battle", "black", 700, 350, "text");
 
 // ***** GAME OVER TEXT *****
 function gameOverDisplay() {
-    // ctx.textBaseline = 'middle';
-    // ctx.textAlign = 'center';
+	ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
     ctx.fillStyle = "rgba(13, 6, 6, 1)";
     ctx.font = "bold 60px Vector_Battle";
-    ctx.fillText("GAME OVER", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2);
+    ctx.fillText("GAME OVER", 400, 400);
 }
 
 // set coordinates of plane, size, and load img sprite
@@ -210,7 +210,6 @@ Fire.prototype.update = function() {
     this.yPos += /*this.dy*/ this.speedY * 6.5;
 }
 
-
 // ***** PAPER TARGETS *****
 var targets = new Array();
 
@@ -220,7 +219,6 @@ function makePaperballs() {
         targets.push(new Target(120, 150, "../paper-droid/assets/images/method-draw-image.svg"));
     }
 }
-
 
 function drawPaperballs() {
     // loop through targets array
@@ -301,7 +299,6 @@ function Target(width, height, image) {
         }
         // return crash;
     }
-
 }
 
 // Move
@@ -364,7 +361,7 @@ window.addEventListener("keyup", function(e) {
 function updateGameArea() {
     for (var i = 0; i < targets.length; i++) {
         if (plane.collide(targets[i])) {
-            gameOverDisplay();
+            // gameOverDisplay();
             console.log("collided");
             myGameArea.stop();
         }
