@@ -25,29 +25,36 @@ var myGameArea = {
 }
 
 // ***** GAME COMPONENT ******
-function Component(width, height, color, x, y) {
+function Component(width, height, color, xPos, yPos) {
     this.width = width;
     this.height = height;
-    this.x = x;
-    this.y = y; 
+    this.xPos = xPos;
+    this.yPos = yPos;
     this.update = function() {
-    ctx = myGameArea.context;
-    if (this.type == "text") {
-      ctx.font = this.width + " " + this.height;
-      ctx.fillStyle = color;
-      ctx.fillText(this.text, this.x, this.y);
-    } else {
-      ctx.fillStyle = color;
-      ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx = myGameArea.context;
+        if (this.type == "text") {
+            ctx.font = this.width + " " + this.height;
+            ctx.fillStyle = color;
+            ctx.fillText(this.text, this.xPos, this.yPos);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
+        }
     }
- }
 }
 
 
 // **** SCORE *****
-var myScore;
-myScore = new Component("15px", "Consolas", "black", 280, 40, "text");
+var myScore = 0;
+myScore = new Component("20px", "Consolas", "black", 700, 350, "text");
 
+
+// ***** GAME OVER TEXT *****
+function gameOverDisplay() {
+    ctx.fillStyle = "rgba(255, 0, 0, 1)";
+    ctx.font = "bold 60px Consolas";
+    ctx.fillText("GAME OVER", myGameArea.canvas.width/2, myGameArea.canvas.height/2);
+}
 
 
 // set coordinates of plane, size, and load img sprite
@@ -95,10 +102,10 @@ function Paperplane(width, height, xPos, yPos, image, points) {
         var right = this.xPos + (this.width);
         var top = this.yPos;
         var bottom = this.yPos + (this.height);
-        var otherLeft = target.xPos + 10;
+        var otherLeft = target.xPos;
         var otherRight = target.xPos;
         var otherTop = target.yPos;
-        var otherBottom = target.yPos + 10;
+        var otherBottom = target.yPos;
         var crash = true;
         if ((bottom < otherTop) ||
             (top > otherBottom) ||
@@ -108,7 +115,6 @@ function Paperplane(width, height, xPos, yPos, image, points) {
         }
         return crash;
     }
-
 }
 
 // new position method for plane
@@ -271,8 +277,10 @@ window.addEventListener("keyup", function(e) {
 
 function updateGameArea() {
     if (plane.collide(target)) {
+    	gameOverDisplay();
         myGameArea.stop();
-         alert("You crashed!");
+        document.location.reload();
+        // alert("You crashed!");
     } else {
         myGameArea.clear();
         myGameArea.frameNo += 1;
