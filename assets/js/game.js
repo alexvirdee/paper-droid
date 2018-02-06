@@ -24,6 +24,9 @@ var myGameArea = {
     }
 }
 
+// **** SCORE *****
+let score;
+
 
 
 // set coordinates of plane, size, and load img sprite
@@ -154,8 +157,8 @@ Fire.prototype.update = function() {
 
 
 // ***** PAPER TARGETS *****
-target = new Target(80, 100, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
-
+target = new Target(120, 150, 100, 150, "../paper-droid/assets/images/method-draw-image.svg");
+var targets = [];
 
 // enemy object constructor 
 function Target(width, height, xPos, yPos, image) {
@@ -174,7 +177,7 @@ function Target(width, height, xPos, yPos, image) {
         ctx = myGameArea.context;
         ctx.save();
         ctx.translate(this.xPos + 10, this.yPos + 10);
-        ctx.rotate(this.angle += 0.1);
+        ctx.rotate(this.angle += 0.02);
         ctx.drawImage(
             this.image,
             this.width / -2,
@@ -182,6 +185,7 @@ function Target(width, height, xPos, yPos, image) {
             this.width,
             this.height
         );
+
         ctx.restore();
     }
 }
@@ -254,7 +258,6 @@ function updateGameArea() {
         plane.newPos();
         plane.update();
         target.update();
-
         target.xPos += 0.5;
     }
 }
