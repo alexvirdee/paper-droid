@@ -68,6 +68,7 @@ function Paperplane(width, height, xPos, yPos, image, points) {
     this.yPos = yPos;
     this.speedX = 0;
     this.speedY = 0;
+    this.lives = 3;
     this.width = width;
     this.height = height;
     this.angle = 0;
@@ -279,8 +280,6 @@ function Target(width, height, image) {
 
 }
 
-
-
 // Move
 // keyCodes: Right => 39, left => 37, Up => 38, Back => 40, Spacebar => 32
 // keydown function that will move plane sprite across game canvas
@@ -353,6 +352,4 @@ function updateGameArea() {
         makePaperballs();
         drawPaperballs();
     }
-
-
 }
