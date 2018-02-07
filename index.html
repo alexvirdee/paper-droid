@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Paper Droid</title>
-	<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/style.css">
-	<link rel="icon" href="http://moziru.com/images/paper-clipart-paper-airplane-3.png" type="image/x-icon">
-</head>
-<body onload="myGameArea.start()">
 
-	<div class="droid">
-		<h1>Paper Droid</h1>
-	</div>
-	<div id="instructions">
-		<h6>INSTRUCTIONS</h6>
-		<p>Move: Arrow keys</p>
-		<p>Shoot: Spacebar</p>
-	</div>
-	<div id="by"><p>By: Alex Virdee</p></div>
-	
-<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBktOrepoy-p4Kjqg4sn_P9DFAgV2EzcS4",
-    authDomain: "paper-droid.firebaseapp.com",
-    databaseURL: "https://paper-droid.firebaseio.com",
-    projectId: "paper-droid",
-    storageBucket: "",
-    messagingSenderId: "583398049882"
-  };
-  firebase.initializeApp(config);
-</script>
-	<script type="text/javascript" src="assets/js/game.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Paper Droid</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="http://moziru.com/images/paper-clipart-paper-airplane-3.png" type="image/x-icon">
+</head>
+
+<body onload="myGameArea.start()">
+    <div class="droid">
+        <h1>Paper Droid</h1>
+    </div>
+    <div id="instructions">
+        <h6>INSTRUCTIONS</h6>
+        <p>Move: Arrow keys</p>
+        <p>Shoot: Spacebar</p>
+    </div>
+    <div id="by">
+        <p>By: Alex Virdee</p>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBktOrepoy-p4Kjqg4sn_P9DFAgV2EzcS4",
+        authDomain: "paper-droid.firebaseapp.com",
+        databaseURL: "https://paper-droid.firebaseio.com",
+        projectId: "paper-droid",
+        storageBucket: "",
+        messagingSenderId: "583398049882"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <script type="text/javascript" src="assets/js/game.js"></script>
 </body>
+
 </html>

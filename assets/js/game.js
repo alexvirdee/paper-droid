@@ -42,7 +42,6 @@ function Score(width, height, color, xPos, yPos) {
 // **** SCORE *****
 myScore = new Score("20px", "Vector_Battle", "black", 700, 350, "text");
 
-// Update firebase with score
 
 // ***** LIVES COMPONENT ******
 function Lives(width, height, color, xPos, yPos, plane) {
@@ -153,9 +152,9 @@ Paperplane.prototype.checkPos = function() {
 
 // plane firing 
 Paperplane.prototype.fire = function() {
-    var dx = /*Math.cos(this.angle)*/ 0;
+    var dx = Math.cos(plane.angle) /*0*/;
     // console.log(dx);
-    var dy = /*Math.sin(this.angle)*/ 0;
+    var dy = Math.sin(plane.angle) /*0*/;
     // console.log(dy);
     // bullets move in direction plane is moving 
     //====================================================================================
@@ -192,8 +191,8 @@ Fire.prototype.draw = function() {
 
 // update position of bullets
 Fire.prototype.update = function() {
-    this.xPos += /*this.dx*/ this.speedX * 6.5;
-    this.yPos += /*this.dy*/ this.speedY * 6.5;
+    this.xPos +=  this.speedX * 12;
+    this.yPos +=  this.speedY * 12;
 }
 
 // ***** PAPER TARGETS *****
@@ -201,9 +200,14 @@ var targets = new Array();
 
 // every 2 seconds push a target into targets array
 function makePaperballs() {
-    if (everyInterval(2000) && targets.length < 25) {
-        targets.push(new Target(120, 150, "../paper-droid/assets/images/method-draw-image.svg"));
-    }
+    if (everyInterval(2000) && targets.length < 20) {
+        targets.push(new Target(120, 150, "../paper-droid/assets/images/crumpled-paper.svg"));
+    } else if (everyInterval(5000) && targets.length < 20) {
+    	targets.push(new Target(160, 200, "../paper-droid/assets/images/crumpled-paper.svg"))
+    } else if (everyInterval(1000) && myScore.score >= 100 && targets.length < 20) {
+    	targets.push(new Target(120, 150, "../paper-droid/assets/images/crumpled-paper.svg"));
+    	targets.push(new Target(180, 200, "../paper-droid/assets/images/crumpled-paper.svg"))
+    } 
 }
 
 function drawPaperballs() {
@@ -247,7 +251,7 @@ function Target(width, height, image) {
     this.update = function() {
         ctx = myGameArea.context;
         ctx.save();
-        ctx.translate(this.xPos + 10, this.yPos + 10);
+        ctx.translate(this.xPos + 20, this.yPos + 20);
         ctx.rotate(this.angle += 0.02);
         ctx.drawImage(
             this.image,
@@ -259,7 +263,7 @@ function Target(width, height, image) {
         ctx.restore();
     }
     this.collide = function(target) {
-        // collision detection based on coordinates of plane & targets
+        // collision detection based on coordinates of plane bullets & targets
         var left = this.xPos;
         var right = this.xPos + (this.width);
         var top = this.yPos;
