@@ -42,6 +42,8 @@ function Score(width, height, color, xPos, yPos) {
 // **** SCORE *****
 myScore = new Score("20px", "Vector_Battle", "black", 700, 350, "text");
 
+// Update firebase with score
+
 // ***** LIVES COMPONENT ******
 function Lives(width, height, color, xPos, yPos, plane) {
     this.width = width;
@@ -197,9 +199,9 @@ Fire.prototype.update = function() {
 // ***** PAPER TARGETS *****
 var targets = new Array();
 
-// every 3 seconds push a target into targets array
+// every 2 seconds push a target into targets array
 function makePaperballs() {
-    if (everyInterval(2000) && targets.length < 20) {
+    if (everyInterval(2000) && targets.length < 25) {
         targets.push(new Target(120, 150, "../paper-droid/assets/images/method-draw-image.svg"));
     }
 }
@@ -341,6 +343,12 @@ window.addEventListener("keyup", function(e) {
     }
 });
 
+function startOver(e) {
+	if (e.which == 13) {
+    	document.location.reload(); 
+    }
+}
+
 function updateGameArea() {
     for (var i = 0; i < targets.length; i++) {
         if (plane.collide(targets[i])) {
@@ -356,10 +364,13 @@ function updateGameArea() {
     plane.newPos();
     plane.update();
     makePaperballs();
-    drawPaperballs();  
+    drawPaperballs(); 
+
     if (lives.lives === 0) {
     	myScore.score = 0;
     	gameOverDisplay();
     	myGameArea.stop();
-    }
+    	document.onkeydown = startOver;
+    } 
+
 }
