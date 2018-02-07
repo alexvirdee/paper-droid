@@ -28,12 +28,14 @@ var myGameArea = {
 function Score(width, height, color, xPos, yPos) {
     this.width = width;
     this.height = height;
+    this.score = 0;
     this.xPos = xPos;
     this.yPos = yPos;
     this.update = function() {
         ctx = myGameArea.context;
         ctx.font = "25px Vector_Battle";
-        ctx.fillText("SCORE: " + myGameArea.frameNo / 20, myGameArea.canvas.width - 160, 40);
+        ctx.fillText("SCORE: " + this.score, myGameArea.canvas.width - 160, 40);
+      
     }
 }
 
@@ -197,7 +199,7 @@ var targets = new Array();
 
 // every 3 seconds push a target into targets array
 function makePaperballs() {
-    if (everyInterval(2000) && targets.length < 11) {
+    if (everyInterval(2000) && targets.length < 20) {
         targets.push(new Target(120, 150, "../paper-droid/assets/images/method-draw-image.svg"));
     }
 }
@@ -273,9 +275,11 @@ function Target(width, height, image) {
             console.log("MISSED");
             // console.log(hit);
 
-        } else {
-            // destroying paper ball targets 
+        } else if(left < targetLeft + targetRight && left + right > targetLeft && top < targetTop + targetBottom && top + bottom > targetTop) {
+        	myScore.score += 10;
+            // bullet is hitting target 
             this.destroyed = true;
+
             console.log("HIT!");
             // console.log(hit);
         }
@@ -345,8 +349,9 @@ function updateGameArea() {
             lives.lives -= 1;
             // gameOverDisplay();
             myGameArea.stop();
-        }
+        }    
     }
+
     myGameArea.clear();
     myGameArea.frameNo += 20;
     plane.checkPos();
