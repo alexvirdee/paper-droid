@@ -354,6 +354,8 @@ function updateGameArea() {
         if (plane.collide(targets[i])) {
             console.log("collided");
             lives.lives -= 1;
+            plane.xPos = myGameArea.canvas.width/2;
+            plane.yPos = myGameArea.canvas.height/2;
         }    
     }
     myGameArea.clear();
