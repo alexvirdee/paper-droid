@@ -38,7 +38,6 @@ function Score(width, height, color, xPos, yPos) {
 }
 
 // **** SCORE *****
-var myScore = 0;
 myScore = new Score("20px", "Vector_Battle", "black", 700, 350, "text");
 
 // ***** LIVES COMPONENT ******
@@ -59,11 +58,11 @@ lives = new Lives("20px", "Vector_Battle", "black", 700, 350, "text");
 
 // ***** GAME OVER TEXT *****
 function gameOverDisplay() {
-	ctx.textBaseline = 'middle';
+    ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     ctx.fillStyle = "rgba(13, 6, 6, 1)";
     ctx.font = "bold 60px Vector_Battle";
-    ctx.fillText("GAME OVER", myGameArea.canvas.width/2, myGameArea.canvas.height/2);
+    ctx.fillText("GAME OVER", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2);
 }
 
 // set coordinates of plane, size, and load img sprite
@@ -319,7 +318,6 @@ function move(e) {
 
 document.onkeydown = move;
 
-
 // event listener for slowing down paper airplane sprite when user keysup
 window.addEventListener("keyup", function(e) {
     if (e.which == 39) {
@@ -340,12 +338,11 @@ window.addEventListener("keyup", function(e) {
     }
 });
 
-
 function updateGameArea() {
     for (var i = 0; i < targets.length; i++) {
-        if (plane.collide(targets[i])) {      
+        if (plane.collide(targets[i])) {
             console.log("collided");
-            lives.lives-=1;
+            lives.lives -= 1;
             // gameOverDisplay();
             myGameArea.stop();
         }
