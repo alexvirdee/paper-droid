@@ -204,9 +204,9 @@ function makePaperballs() {
         targets.push(new Target(120, 150, "../paper-droid/assets/images/crumpled-paper.svg"));
     } else if (everyInterval(5000) && targets.length < 20) {
     	targets.push(new Target(160, 200, "../paper-droid/assets/images/crumpled-paper.svg"))
-    } else if (everyInterval(1000) && myScore.score >= 100 && targets.length < 20) {
+    } else if (everyInterval(1500) && targets.length < 20 && myScore.score >= 200) {
     	targets.push(new Target(120, 150, "../paper-droid/assets/images/crumpled-paper.svg"));
-    	targets.push(new Target(180, 200, "../paper-droid/assets/images/crumpled-paper.svg"))
+    	targets.push(new Target(180, 210, "../paper-droid/assets/images/crumpled-paper.svg"))
     } 
 }
 
