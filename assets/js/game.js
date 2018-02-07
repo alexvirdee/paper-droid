@@ -64,7 +64,7 @@ function gameOverDisplay() {
     ctx.textAlign = 'center';
     ctx.fillStyle = "rgba(13, 6, 6, 1)";
     ctx.font = "bold 60px Vector_Battle";
-    ctx.fillText("GAME OVER", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2);
+    ctx.fillText("GAME OVER ", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2);
 }
 
 // set coordinates of plane, size, and load img sprite
@@ -317,7 +317,6 @@ function move(e) {
         plane.fire();
         console.log("Shooting");
     }
-
 }
 
 document.onkeydown = move;
@@ -347,11 +346,15 @@ function updateGameArea() {
         if (plane.collide(targets[i])) {
             console.log("collided");
             lives.lives -= 1;
-            // gameOverDisplay();
-            myGameArea.stop();
+          
+          if(lives.lives === 0) {
+          	 myScore.score = 0;
+          	 // gameOverDisplay();
+          	 myGameArea.stop();
+          	 document.location.reload();
+          }  
         }    
     }
-
     myGameArea.clear();
     myGameArea.frameNo += 20;
     plane.checkPos();
@@ -360,5 +363,5 @@ function updateGameArea() {
     plane.newPos();
     plane.update();
     makePaperballs();
-    drawPaperballs();
+    drawPaperballs();  
 }
