@@ -205,7 +205,7 @@ function makePaperballs() {
     } else if (everyInterval(2000) && targets.length < 25 && myScore.score >= 100) {
     	targets.push(new Target(120, 150, "../paper-droid/assets/images/crumpled-paper.svg"));
     	targets.push(new Target(160, 200, "../paper-droid/assets/images/crumpled-paper.svg"))
-    } else if (everyInterval(500) && targets.length < 25 && myScore.score >= 200) {
+    } else if (everyInterval(600) && targets.length < 25 && myScore.score >= 200) {
     	targets.push(new Target(120, 150, "../paper-droid/assets/images/crumpled-paper.svg"));
     }
 }
@@ -285,7 +285,6 @@ function Target(width, height, image) {
         	myScore.score += 10;
             // bullet is hitting target 
             this.destroyed = true;
-
             console.log("HIT!");
             // console.log(hit);
         }
@@ -300,12 +299,12 @@ function move(e) {
     // alert(e.keyCode);
     if (e.which == 39) {
         plane.speedX = 5;
-        plane.angle += Math.PI / 2;
+        plane.angle += Math.PI / 3;
         console.log("Move 5 pixels to the right")
     }
     if (e.which == 37) {
         plane.speedX = -5;
-        plane.angle -= Math.PI / 2;
+        plane.angle -= Math.PI / 3;
         console.log("Move 5 pixels to the left")
     }
     if (e.which == 38) {
@@ -378,5 +377,4 @@ function updateGameArea() {
     	myGameArea.stop();
     	document.onkeydown = startOver;
     } 
-
 }
