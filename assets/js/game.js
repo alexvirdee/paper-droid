@@ -205,9 +205,9 @@ function makePaperballs() {
     } else if (everyInterval(2000) && targets.length < 25 && myScore.score >= 100) {
     	targets.push(new Target(120, 150, "../paper-droid/assets/images/crumpled-paper.svg"));
     	targets.push(new Target(160, 200, "../paper-droid/assets/images/crumpled-paper.svg"))
-    } else if (everyInterval(600) && targets.length < 25 && myScore.score >= 200) {
+    } else if (everyInterval(800) && targets.length < 25 && myScore.score >= 200) {
     	targets.push(new Target(120, 150, "../paper-droid/assets/images/crumpled-paper.svg"));
-    }
+    } 
 }
 
 function drawPaperballs() {
