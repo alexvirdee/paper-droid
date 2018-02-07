@@ -42,7 +42,6 @@ function Score(width, height, color, xPos, yPos) {
 // **** SCORE *****
 myScore = new Score("20px", "Vector_Battle", "black", 700, 350, "text");
 
-
 // ***** LIVES COMPONENT ******
 function Lives(width, height, color, xPos, yPos, plane) {
     this.width = width;
