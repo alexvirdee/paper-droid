@@ -346,13 +346,6 @@ function updateGameArea() {
         if (plane.collide(targets[i])) {
             console.log("collided");
             lives.lives -= 1;
-          
-          if(lives.lives === 0) {
-          	 myScore.score = 0;
-          	 // gameOverDisplay();
-          	 myGameArea.stop();
-          	 document.location.reload();
-          }  
         }    
     }
     myGameArea.clear();
@@ -364,4 +357,9 @@ function updateGameArea() {
     plane.update();
     makePaperballs();
     drawPaperballs();  
+    if (lives.lives === 0) {
+    	myScore.score = 0;
+    	gameOverDisplay();
+    	myGameArea.stop();
+    }
 }
