@@ -1,4 +1,4 @@
-// Alex Virdee 2018 IRONHACK PROJECT
+// Alex Virdee 2018 IRONHACK PROJECT 1 
 
 // Draw gameArea object
 // Set the canvas dimensions 
