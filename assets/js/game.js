@@ -15,6 +15,7 @@ var myGameArea = {
         );
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
+        none: document.getElementById("remove-screen").style.display = 'none';
     },
     clear: function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -23,6 +24,8 @@ var myGameArea = {
         clearInterval(this.interval);
     }
 }
+
+
 
 // ***** SCORE COMPONENT ******
 function Score(width, height, color, xPos, yPos) {
