@@ -27,8 +27,6 @@ var myGameArea = {
 }
 
 
- 
-
 // ***** SCORE COMPONENT ******
 function Score(width, height, color, xPos, yPos) {
     this.width = width;
