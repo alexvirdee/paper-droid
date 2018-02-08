@@ -5,4 +5,4 @@
 Paper Droid was inspired by the classic Asteroids game developed by Atari in 1979. In the original game a player controlled a ship to shoot asteroids. Paper Droid takes similar elements and makes the game into a fun spin off where the player controls a paper airplane and shoots at paper balls. Lives are lost upon collision with the paper ball targets and score is added upon destroying the targets. The game is over when the player loses all lives. 
 
 ### Gameplay 
-<img src="assets/images/gameplay2.gif" alt="gameplay" style="max-width:100%;">
+<img src="assets/images/gameplay3.gif" alt="gameplay" style="max-width:100%;">
