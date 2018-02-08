@@ -397,7 +397,7 @@ function updateGameArea() {
     	myScore.score = 0;
     	gameOverDisplay();
     	myGameArea.stop();
-        setTimeout("ending.play()", 1000);
+        setTimeout("ending.play()", 800);
     	document.onkeydown = startOver;
     } 
 }
