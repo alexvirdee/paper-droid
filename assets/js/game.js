@@ -1,4 +1,4 @@
-// Alex Virdee 2018 IRONHACK PROJECT 1 
+// Alex Virdee 2018 IRONHACK PROJECT PAPER-DROID 
 
 // Draw gameArea object
 // Set the canvas dimensions 
