@@ -16,6 +16,7 @@ var myGameArea = {
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
         none: document.getElementById("remove-screen").style.display = 'none';
+        starting.play();
     },
     clear: function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -26,6 +27,7 @@ var myGameArea = {
 }
 
 
+ 
 
 // ***** SCORE COMPONENT ******
 function Score(width, height, color, xPos, yPos) {
@@ -68,10 +70,15 @@ function gameOverDisplay() {
     ctx.fillStyle = "rgba(13, 6, 6, 1)";
     ctx.font = "bold 60px Vector_Battle";
     ctx.fillText("GAME OVER ", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2);
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = "rgba(13, 6, 6, 1)";
+    ctx.font = "bold 12px Vector_Battle";
+    ctx.fillText("Press Enter", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 +100);
 }
 
 // set coordinates of plane, size, and load img sprite
-plane = new Paperplane(35, 35, 400, 200, "../paper-droid/assets/images/paperplane.svg");
+plane = new Paperplane(35, 35, 400, 200, "../paper-droid/assets/images/paperplane2.svg");
 
 // Sprite constructor for paper airplane 
 function Paperplane(width, height, xPos, yPos, image, points) {
@@ -288,11 +295,21 @@ function Target(width, height, image) {
             // bullet is hitting target 
             this.destroyed = true;
             console.log("HIT!");
+            destroy.play();
             // console.log(hit);
         }
         // return crash;
     }
 }
+
+//***** SOUNDS ********
+var shooting = new Audio("../paper-droid/assets/sounds/laser.mp3");
+var starting = new Audio("../paper-droid/assets/sounds/paper-crumple.mp3");
+var destroy = new Audio("../paper-droid/assets/sounds/destroy.mp3");
+var life = new Audio("../paper-droid/assets/sounds/life-lose.mp3");
+var ending = new Audio("../paper-droid/assets/sounds/acecombat.mp3");
+
+
 
 // Move
 // keyCodes: Right => 39, left => 37, Up => 38, Back => 40, Spacebar => 32
@@ -322,6 +339,7 @@ function move(e) {
     // fire bullet when spacebar is pressed
     if (e.which == 32) {
         plane.fire();
+        shooting.play();
         console.log("Shooting");
     }
 }
@@ -359,6 +377,7 @@ function updateGameArea() {
         if (plane.collide(targets[i])) {
             console.log("collided");
             lives.lives -= 1;
+            life.play();
             plane.xPos = myGameArea.canvas.width/2;
             plane.yPos = myGameArea.canvas.height/2;
         }    
@@ -371,12 +390,14 @@ function updateGameArea() {
     plane.newPos();
     plane.update();
     makePaperballs();
-    drawPaperballs(); 
+    drawPaperballs();
+
 
     if (lives.lives === 0) {
     	myScore.score = 0;
     	gameOverDisplay();
     	myGameArea.stop();
+        setTimeout("ending.play()", 1000);
     	document.onkeydown = startOver;
     } 
 }
