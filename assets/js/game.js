@@ -252,8 +252,8 @@ function Target(width, height, image) {
     this.speedY = 0;
     this.angle = 0;
     this.destroyed = false;
-    this.xPos = Math.floor(Math.random() * 600);
-    this.yPos = Math.floor(Math.random() * 200);
+    this.xPos = Math.floor(Math.random() * 750);
+    this.yPos = Math.floor(Math.random() * 350);
 
     this.image = new Image();
     this.image.src = image;
