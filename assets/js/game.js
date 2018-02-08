@@ -143,7 +143,7 @@ Paperplane.prototype.newPos = function() {
     this.yPos += this.speedY;
 }
 
-// method for having the plane move to the opposite side of canvas upon leaving side
+// method for having the plane move to the opposite side of canvas upon leaving one side
 // xPos, yPos
 Paperplane.prototype.checkPos = function() {
     if (plane.xPos < 0) {
