@@ -31,8 +31,10 @@ body {
     cursor: pointer;
     overflow: hidden;
     position:relative;
-    top:18%; 
+    top:45%; 
     left:36%;
+    font-size: 20px;
+    color: #000;
 }
 
 

@@ -73,8 +73,8 @@ function gameOverDisplay() {
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     ctx.fillStyle = "rgba(13, 6, 6, 1)";
-    ctx.font = "bold 12px Vector_Battle";
-    ctx.fillText("Press Enter", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 +100);
+    ctx.font = "bold 16px Vector_Battle";
+    ctx.fillText("Press Enter", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 100);
 }
 
 // set coordinates of plane, size, and load img sprite
