@@ -7,8 +7,8 @@ Paper Droid was inspired by the classic Asteroids game developed by Atari in 197
 ### Gameplay 
 <img src="assets/images/gameplay.gif" alt="gameplay" style="max-width:100%;">
 
-Paper Droid is played using the arrow keys to move the paper airplane across the screen. Spacebar controlls the bullets that are fired from the plane. 
+Paper Droid is played using the arrow keys to move the paper airplane across the screen. Spacebar allows the player to fire bullets from the plane. 
 
 The game relies heavily on collision. If a bullet collides with one of the targets the target will disappear and 10 points will be added to the score. If there is a collision between the plane and a target the player will lose a life and will spawn in the middle of the screen. 
 
-If the player loses all lives there is a gameover screen where a player is able to press enter to be taken back to the start screen and play the game again. 
+If the player loses all lives the game is over and the player is able to press enter to be taken back to the start screen to play the game again. 

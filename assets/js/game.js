@@ -389,8 +389,6 @@ function updateGameArea() {
     plane.update();
     makePaperballs();
     drawPaperballs();
-
-
     if (lives.lives === 0) {
     	myScore.score = 0;
     	gameOverDisplay();
