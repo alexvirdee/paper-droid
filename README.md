@@ -1,5 +1,7 @@
 # Paper Droid
 
+[Paper Droid Live](https://alexvirdee.github.io/paper-droid/)
+
 ### About 
 
 Paper Droid was inspired by the classic Asteroids game developed by Atari in 1979. In the original game a player controls a ship to shoot asteroids. Paper Droid takes similar elements and makes the game into a fun spin off where the player controls a paper airplane and shoots at paper ball targets. Lives are lost upon collision with the paper ball targets and score is added when the targets are destroyed. The game is over when the player loses all lives. 

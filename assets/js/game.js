@@ -370,6 +370,7 @@ function startOver(e) {
     }
 }
 
+
 function updateGameArea() {
     for (var i = 0; i < targets.length; i++) {
         if (plane.collide(targets[i])) {
